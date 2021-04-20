@@ -1,19 +1,15 @@
 package com.github.wuxudong.rncharts.charts;
 
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.BubbleEntry;
-import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.data.RadarEntry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.Collection;
 
 /**
  * This formatter is used for passing an array of x-axis labels, on whole x steps.
  */
-public class IndexValueFormatter extends ValueFormatter {
+public class IndexValueFormatter implements IValueFormatter {
     private String[] mValues = new String[]{};
     private int mValueCount = 0;
 
@@ -56,45 +52,10 @@ public class IndexValueFormatter extends ValueFormatter {
         this.mValueCount = values.length;
     }
 
-    @Override
-    public String getBarLabel(BarEntry barEntry) {
-        return getFormattedValue(barEntry);
-    }
+    public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+        int index = Math.round(value);
 
-    @Override
-    public String getBarStackedLabel(float value, BarEntry stackedEntry) {
-        return getFormattedValue(stackedEntry);
-    }
-
-    @Override
-    public String getPointLabel(Entry entry) {
-        return getFormattedValue(entry);
-    }
-
-    @Override
-    public String getPieLabel(float value, PieEntry pieEntry) {
-        return getFormattedValue(pieEntry);
-    }
-
-    @Override
-    public String getRadarLabel(RadarEntry radarEntry) {
-        return getFormattedValue(radarEntry);
-    }
-
-    @Override
-    public String getBubbleLabel(BubbleEntry bubbleEntry) {
-        return getFormattedValue(bubbleEntry);
-    }
-
-    @Override
-    public String getCandleLabel(CandleEntry candleEntry) {
-        return getFormattedValue(candleEntry);
-    }
-
-    private String getFormattedValue(Entry entry) {
-        int index = Math.round(entry.getX());
-
-        if (index < 0 || index >= mValueCount || index != (int) entry.getX())
+        if (index < 0 || index >= mValueCount || index != (int) value)
             return "";
 
         return mValues[index];
