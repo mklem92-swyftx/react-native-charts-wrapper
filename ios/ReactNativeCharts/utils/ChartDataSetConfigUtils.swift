@@ -109,6 +109,27 @@ class ChartDataSetConfigUtils: NSObject {
         if config["highlightLineWidth"].float != nil {
             dataSet.highlightLineWidth = CGFloat(config["highlightLineWidth"].floatValue);
         }
+
+        if config["highlightLineDash"].exists() {
+            let gridDashedLine = config["highlightLineDash"]
+
+            var lineLength = CGFloat(0)
+            var spaceLength = CGFloat(0)
+
+            if gridDashedLine["lineLength"].number != nil {
+                lineLength = CGFloat(truncating: gridDashedLine["lineLength"].numberValue)
+            }
+
+            if gridDashedLine["spaceLength"].number != nil {
+                spaceLength = CGFloat(truncating: gridDashedLine["spaceLength"].numberValue)
+            }
+
+            if gridDashedLine["phase"].number != nil {
+                dataSet.highlightLineDashPhase = CGFloat(truncating: gridDashedLine["phase"].numberValue)
+            }
+
+            dataSet.highlightLineDashLengths = [lineLength, spaceLength]
+        }
     }
 
     static func commonLineRadarConfig( _ dataSet:LineRadarChartDataSet,  config:JSON) {

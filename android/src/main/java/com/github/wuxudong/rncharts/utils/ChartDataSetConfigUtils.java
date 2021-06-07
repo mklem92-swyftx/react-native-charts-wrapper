@@ -134,6 +134,24 @@ public class ChartDataSetConfigUtils {
         if (BridgeUtils.validate(config, ReadableType.Number, "highlightLineWidth")) {
             dataSet.setHighlightLineWidth((float) config.getDouble("highlightLineWidth"));
         }
+        if (BridgeUtils.validate(config, ReadableType.Map, "highlightLineDash")) {
+            ReadableMap dashedLine = config.getMap("highlightLineDash");
+            float lineLength = 0;
+            float spaceLength = 0;
+            float phase = 0;
+
+            if (BridgeUtils.validate(dashedLine, ReadableType.Number, "lineLength")) {
+                lineLength = (float) dashedLine.getDouble("lineLength");
+            }
+            if (BridgeUtils.validate(dashedLine, ReadableType.Number, "spaceLength")) {
+                spaceLength = (float) dashedLine.getDouble("spaceLength");
+            }
+            if (BridgeUtils.validate(dashedLine, ReadableType.Number, "phase")) {
+                phase = (float) dashedLine.getDouble("phase");
+            }
+
+            dataSet.enableDashedHighlightLine(lineLength, spaceLength, phase);
+        }
     }
 
     public static void commonLineRadarConfig(LineRadarDataSet dataSet, ReadableMap config) {
