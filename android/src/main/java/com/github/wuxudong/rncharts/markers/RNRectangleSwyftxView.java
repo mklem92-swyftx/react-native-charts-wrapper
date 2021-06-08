@@ -110,8 +110,12 @@ public class RNRectangleSwyftxView extends MarkerView {
         Chart chart = getChartView();
 
         float width = getWidth();
-//        tvPrimary.setPadding(15, 15, 15,15);
-//        tvSecondary.setPadding(15, 15, 15,15);
+
+        if (posX + offset2.x < 0) {
+            offset2.x = 0;
+        } else if (chart != null && posX + width + offset2.x > chart.getWidth()) {
+            offset2.x = -width;
+        }
 
         offset2.y = -posY;
         return offset2;
