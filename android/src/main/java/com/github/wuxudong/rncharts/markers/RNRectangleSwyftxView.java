@@ -109,10 +109,10 @@ public class RNRectangleSwyftxView extends MarkerView {
 
         Chart chart = getChartView();
 
-        float width = getWidth() * 2; // assumed 2 textlabels and getWidth() is textview length
+        float width = getWidth();
 
-        if (posX + offset2.x < 0) {
-            offset2.x = 0;
+        if (posX - (width / 2) < 0) {
+            offset2.x = -( width / 2 );
         } else if (chart != null && posX + width + offset2.x > chart.getWidth()) {
             offset2.x = -width;
         }
