@@ -126,7 +126,7 @@ public class RNRectangleSwyftxView extends MarkerView {
             }
         }
 
-        offset.y = -chart.getHeight() + posY;
+        offset2.y = -chart.getHeight() + posY;
 
         return offset2;
     }
