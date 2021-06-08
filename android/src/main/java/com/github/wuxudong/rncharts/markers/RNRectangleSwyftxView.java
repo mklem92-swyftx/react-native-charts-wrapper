@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import androidx.core.content.res.ResourcesCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.Chart;
@@ -25,6 +26,7 @@ public class RNRectangleSwyftxView extends MarkerView {
 
     private TextView tvPrimary;
     private TextView tvSecondary;
+    private LinearLayout container;
 
     private Drawable backgroundLeft = ResourcesCompat.getDrawable(getResources(), R.drawable.rectangle_marker_left, null);
     private Drawable background = ResourcesCompat.getDrawable(getResources(), R.drawable.rectangle_test, null);
@@ -39,6 +41,7 @@ public class RNRectangleSwyftxView extends MarkerView {
     public RNRectangleSwyftxView(Context context) {
         super(context, R.layout.highlight_marker);
 
+        container = (LinearLayout) findViewById(R.id.highlight_marker_content)
         tvPrimary = (TextView) findViewById(R.id.highlight_label_primary);
         tvSecondary = (TextView) findViewById(R.id.highlight_label_secondary);
 
@@ -121,6 +124,10 @@ public class RNRectangleSwyftxView extends MarkerView {
 
     public TextView getSecondaryTv() {
         return tvSecondary;
+    }
+
+    public LinearLayout getContainer() {
+        return container;
     }
 
 }

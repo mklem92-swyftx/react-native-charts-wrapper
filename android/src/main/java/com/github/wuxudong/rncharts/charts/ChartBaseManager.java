@@ -310,9 +310,7 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
     private void setSwyftxMarkerParams(RNRectangleSwyftxView marker, ReadableMap propMap) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                 BridgeUtils.validate(propMap, ReadableType.Number, "markerColor")) {
-            marker.getPrimaryTv().setBackgroundTintList(ColorStateList.valueOf(propMap.getInt("markerColor")));
-            marker.getSecondaryTv().setBackgroundTintList(ColorStateList.valueOf(propMap.getInt("markerColor")));
-
+            marker.getContainer().setBackgroundTintList(ColorStateList.valueOf(propMap.getInt("markerColor")));
         }
 
         if (BridgeUtils.validate(propMap, ReadableType.Number, "digits")) {
