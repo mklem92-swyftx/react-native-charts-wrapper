@@ -23,7 +23,8 @@ import java.util.Map;
 
 public class RNRectangleSwyftxView extends MarkerView {
 
-    private TextView tvContent;
+    private TextView tvPrimary;
+    private TextView tvSecondary;
 
     private Drawable backgroundLeft = ResourcesCompat.getDrawable(getResources(), R.drawable.rectangle_marker_left, null);
     private Drawable background = ResourcesCompat.getDrawable(getResources(), R.drawable.rectangle_test, null);
@@ -36,9 +37,11 @@ public class RNRectangleSwyftxView extends MarkerView {
     private int digits = 0;
 
     public RNRectangleSwyftxView(Context context) {
-        super(context, R.layout.rectangle_marker);
+        super(context, R.layout.highlight_marker);
 
-        tvContent = (TextView) findViewById(R.id.rectangle_tvContent);
+        tvPrimary = (TextView) findViewById(R.id.rectangle_tvContent);
+        tvSecondary = (TextView) findViewById(R.id.rectangle_tvContent);
+
     }
 
     public void setDigits(int digits) {
@@ -47,33 +50,41 @@ public class RNRectangleSwyftxView extends MarkerView {
 
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        String text;
+        String textPrimary;
+        String textSecondary;
 
         if (e instanceof CandleEntry) {
             CandleEntry ce = (CandleEntry) e;
-            text = Utils.formatNumber(ce.getClose(), digits, false);
+            textPrimary = Utils.formatNumber(ce.getClose(), digits, false);
+            textSecondary = Utils.formatNumber(ce.getClose(), digits, false);
         } else {
-            text = Utils.formatNumber(e.getY(), digits, false);
+            textPrimary = Utils.formatNumber(e.getY(), digits, false);
+            textSecondary = Utils.formatNumber(e.getY(), digits, false);
         }
 
         if (e.getData() instanceof Map) {
             if (((Map) e.getData()).containsKey("marker")) {
 
-                Object marker = ((Map) e.getData()).get("marker");
-                text = marker.toString();
+                Object primaryText = ((Map) ((Map) e.getData()).get("marker")).get("primaryText");
+                Object secondaryText = ((Map) ((Map) e.getData()).get("marker")).get("secondaryText");
 
-                if (highlight.getStackIndex() != -1 && marker instanceof List) {
-                    text = ((List) marker).get(highlight.getStackIndex()).toString();
-                }
-
+                textPrimary = primaryText.toString();
+                textSecondary = secondaryText.toString();
             }
         }
 
-        if (TextUtils.isEmpty(text)) {
-            tvContent.setVisibility(INVISIBLE);
+        if (TextUtils.isEmpty(textPrimary)) {
+            tvPrimary.setVisibility(INVISIBLE);
         } else {
-            tvContent.setText(text);
-            tvContent.setVisibility(VISIBLE);
+            tvPrimary.setText(textPrimary);
+            tvPrimary.setVisibility(VISIBLE);
+        }
+
+        if (TextUtils.isEmpty(textSecondary)) {
+            tvSecondary.setVisibility(INVISIBLE);
+        } else {
+            tvSecondary.setText(textSecondary);
+            tvSecondary.setVisibility(VISIBLE);
         }
 
         super.refreshContent(e, highlight);
@@ -97,43 +108,19 @@ public class RNRectangleSwyftxView extends MarkerView {
         Chart chart = getChartView();
 
         float width = getWidth();
-        tvContent.setPadding(15, 15, 15,15);
-
-        if (posX + offset2.x < 0) {
-            offset2.x = 0;
-
-            if (posY + offset2.y < 0) {
-                offset2.y = 0;
-                tvContent.setBackground(backgroundTopLeft);
-            } else {
-                tvContent.setBackground(backgroundLeft);
-            }
-
-        } else if (chart != null && posX + width + offset2.x > chart.getWidth()) {
-            offset2.x = -width;
-
-            if (posY + offset2.y < 0) {
-                offset2.y = 0;
-                tvContent.setBackground(backgroundTopRight);
-            } else {
-                tvContent.setBackground(backgroundRight);
-            }
-        } else {
-            if (posY + offset2.y < 0) {
-                offset2.y = 0;
-                tvContent.setBackground(backgroundTop);
-            } else {
-                tvContent.setBackground(background);
-            }
-        }
-
+        tvPrimary.setPadding(15, 15, 15,15);
+        tvSecondary.setPadding(15, 15, 15,15);
 
         offset2.y = -posY;
         return offset2;
     }
 
-    public TextView getTvContent() {
-        return tvContent;
+    public TextView getPrimaryTv() {
+        return tvPrimary;
+    }
+
+    public TextView getSecondaryTv() {
+        return tvSecondary;
     }
 
 }
