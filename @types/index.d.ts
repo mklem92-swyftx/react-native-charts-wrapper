@@ -274,10 +274,15 @@ export interface PieRadarChartBase extends ChartBase {
   rotationAngle?: number;
 }
 
+export interface LineMarkerProps {
+  primaryText: string,
+  secondaryText: string
+}
+
 export interface LineValue {
   x?: number;
   y: number;
-  marker?: string;
+  marker?: LineMarkerProps;
 }
 
 export interface CommonDatasetConfig {
