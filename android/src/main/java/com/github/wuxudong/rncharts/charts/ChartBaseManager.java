@@ -320,11 +320,11 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
         }
 
         if (BridgeUtils.validate(propMap, ReadableType.Number, "primaryColor")) {
-            marker.getPrimaryTv().setTextColor(propMap.getInt("textColor"));
+            marker.getPrimaryTv().setTextColor(propMap.getInt("primaryColor"));
             marker.getPrimaryTv().setTypeface(null, Typeface.BOLD);
         }
         if (BridgeUtils.validate(propMap, ReadableType.Number, "secondaryColor")) {
-            marker.getSecondaryTv().setTextColor(propMap.getInt("textColor"));
+            marker.getSecondaryTv().setTextColor(propMap.getInt("secondaryColor"));
         }
         if (BridgeUtils.validate(propMap, ReadableType.Number, "textSize")) {
             marker.getPrimaryTv().setTextSize(propMap.getInt("textSize"));

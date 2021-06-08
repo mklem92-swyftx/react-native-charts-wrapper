@@ -43,7 +43,7 @@ public class RNRectangleSwyftxView extends MarkerView {
         tvSecondary = (TextView) findViewById(R.id.highlight_label_secondary);
 
     }
-
+set
     public void setDigits(int digits) {
         this.digits = digits;
     }
