@@ -9,12 +9,13 @@
         android:id="@+id/rectangle_tvContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle_marker"
+        android:background="@drawable/rectangle_test"
         android:layout_centerHorizontal="true"
         android:text=""
+        android:padding="10dp"
         android:gravity="center"
         android:textSize="12sp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textAppearance="?android:attr/textAppearanceSmall"
     />
 

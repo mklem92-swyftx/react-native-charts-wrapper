@@ -26,7 +26,6 @@ public class RNOnChartValueSelectedListener implements OnChartValueSelectedListe
 
         if (mWeakChart != null) {
             Chart chart = mWeakChart.get();
-
             ReactContext reactContext = (ReactContext) chart.getContext();
             reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                     chart.getId(),
