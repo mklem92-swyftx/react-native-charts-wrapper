@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import androidx.core.content.res.ResourcesCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.Chart;
@@ -126,8 +127,9 @@ public class RNRectangleSwyftxView extends MarkerView {
             }
         }
 
-        offset2.y = -chart.getHeight() + posY;
 
+        offset2.y = posY * 2;
+        Log.i("LAIJSDKLAS", "HELLO");
         return offset2;
     }
 
