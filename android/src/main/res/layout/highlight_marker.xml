@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/highlight_marker_content"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/rectangle_test"
     >
-    <TextView
-        android:id="@+id/highlight_label_secondary"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/highlight_marker_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text=""
-        android:padding="5dp"
-        android:gravity="center"
-        android:textSize="12sp"
-        android:textColor="@android:color/black"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        />
+        android:background="@drawable/rectangle_test"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="10dp"
+        >
+        <TextView
+            android:id="@+id/highlight_label_secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="asdasd"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="@android:color/black"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            />
 
-    <TextView
-        android:id="@+id/highlight_label_primary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text=""
-        android:padding="5dp"
-        android:gravity="center"
-        android:textSize="12sp"
-        android:textColor="@android:color/black"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        />
-</LinearLayout>
+        <TextView
+            android:id="@+id/highlight_label_primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="asdasd"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="@android:color/black"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            />
+    </LinearLayout>
+</RelativeLayout>
