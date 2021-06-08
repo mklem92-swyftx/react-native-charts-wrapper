@@ -41,7 +41,7 @@ public class RNRectangleSwyftxView extends MarkerView {
     public RNRectangleSwyftxView(Context context) {
         super(context, R.layout.highlight_marker);
 
-        container = (LinearLayout) findViewById(R.id.highlight_marker_content)
+        container = (LinearLayout) findViewById(R.id.highlight_marker_content);
         tvPrimary = (TextView) findViewById(R.id.highlight_label_primary);
         tvSecondary = (TextView) findViewById(R.id.highlight_label_secondary);
 
