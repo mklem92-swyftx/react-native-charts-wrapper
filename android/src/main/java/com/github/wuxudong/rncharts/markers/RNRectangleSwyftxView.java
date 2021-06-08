@@ -43,7 +43,7 @@ public class RNRectangleSwyftxView extends MarkerView {
         tvSecondary = (TextView) findViewById(R.id.highlight_label_secondary);
 
     }
-set
+
     public void setDigits(int digits) {
         this.digits = digits;
     }
@@ -74,14 +74,14 @@ set
         }
 
         if (TextUtils.isEmpty(textPrimary)) {
-            tvPrimary.setVisibility(INVISIBLE);
+            tvPrimary.setVisibility(GONE);
         } else {
             tvPrimary.setText(textPrimary);
             tvPrimary.setVisibility(VISIBLE);
         }
 
         if (TextUtils.isEmpty(textSecondary)) {
-            tvSecondary.setVisibility(INVISIBLE);
+            tvSecondary.setVisibility(GONE);
         } else {
             tvSecondary.setText(textSecondary);
             tvSecondary.setVisibility(VISIBLE);

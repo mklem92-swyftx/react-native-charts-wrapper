@@ -50,33 +50,47 @@ class LineChartScreen extends React.Component {
                     {
                       y: 65,
                       x: 0,
-                      marker: "65 kg"
+                      marker: {
+                        primaryText: "77 kg",
+                        secondaryText: "77 kg"
+                      }
                     },
                     {
                       y: 77,
                       x: 1,
-                      marker: "77 kg"
+                      marker: {
+                        primaryText: "77 kg",
+                        secondaryText: "77 kg"
+                      }
                     },
                     {
                       y: 76,
                       x: 2,
-                      marker: "76 kg"
-                    },
+                      marker: {
+                        primaryText: "77 kg",
+                        secondaryText: "77 kg"
+                      }                    },
                     {
                       y: 74,
                       x: 3,
-                      marker: "74 kg"
-                    },
+                      marker: {
+                        primaryText: "77 kg",
+                        secondaryText: ""
+                      }                    },
                     {
                       y: 76,
                       x: 4,
-                      marker: "76 kg"
-                    },
+                      marker: {
+                        primaryText: "77 kg",
+                        secondaryText: "77 kg"
+                      }                    },
                     {
                       y: 65,
                       x: 5,
-                      marker: "Today: 65 kg"
-                    }
+                      marker: {
+                        primaryText: "77 kg",
+                        secondaryText: "77 kg"
+                      }                    }
                   ],
                   label: "",
                   config: {
@@ -87,67 +101,17 @@ class LineChartScreen extends React.Component {
                     circleColor: processColor(petrel),
                     drawCircleHole: false,
                     circleRadius: 5,
-                    highlightColor: processColor("transparent"),
+                    drawHorizontalHighlightIndicator: false,
+                    highlightLineWidth: 2,
+                    highlightLineDash: {
+                      lineLength: 10,
+                      spaceLength: 5
+                    },
+                    highlightColor: processColor('red'),
                     color: processColor(petrel),
                     drawFilled: true,
                     fillGradient: {
                       colors: [processColor(petrel), processColor(greenBlue)],
-                      positions: [0, 0.5],
-                      angle: 90,
-                      orientation: "TOP_BOTTOM"
-                    },
-                    fillAlpha: 1000,
-                    valueTextSize: 15
-                  }
-                },
-
-                {
-                  values: [
-                    {
-                      y: 35,
-                      x: 0,
-                      marker: "35 kg"
-                    },
-                    {
-                      y: 47,
-                      x: 1,
-                      marker: "47 kg"
-                    },
-                    {
-                      y: 46,
-                      x: 2,
-                      marker: "46 kg"
-                    },
-                    {
-                      y: 44,
-                      x: 3,
-                      marker: "44 kg"
-                    },
-                    {
-                      y: 46,
-                      x: 4,
-                      marker: "46 kg"
-                    },
-                    {
-                      y: 35,
-                      x: 5,
-                      marker: "Today: 35 kg"
-                    }
-                  ],
-                  label: "",
-                  config: {
-                    mode: "CUBIC_BEZIER",
-                    drawValues: false,
-                    lineWidth: 2,
-                    drawCircles: true,
-                    circleColor: processColor(petrel),
-                    drawCircleHole: false,
-                    circleRadius: 5,
-                    highlightColor: processColor("transparent"),
-                    color: processColor(petrel),
-                    drawFilled: true,
-                    fillGradient: {
-                      colors: [processColor('red'), processColor('yellow')],
                       positions: [0, 0.5],
                       angle: 90,
                       orientation: "TOP_BOTTOM"
@@ -165,7 +129,8 @@ class LineChartScreen extends React.Component {
             marker={{
               enabled: true,
               markerColor: processColor("white"),
-              textColor: processColor("black")
+              primaryColor: processColor("black"),
+              secondaryColor: processColor("red")
             }}
             xAxis={{
               enabled: true,
@@ -191,7 +156,7 @@ class LineChartScreen extends React.Component {
             autoScaleMinMaxEnabled={true}
             animation={{
               durationX: 0,
-              durationY: 1500,
+              durationY: 500,
               easingY: "EaseInOutQuart"
             }}
             drawGridBackground={false}
