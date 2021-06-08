@@ -94,7 +94,7 @@ public class RNRectangleSwyftxView extends MarkerView {
 
     @Override
     public MPPointF getOffset() {
-        return new MPPointF(-(getWidth() / 2), -getHeight());
+        return new MPPointF(-getWidth() / 2, -getHeight());
     }
 
     @Override
@@ -111,9 +111,10 @@ public class RNRectangleSwyftxView extends MarkerView {
 
         float width = getWidth();
 
-        if (posX + offset2.x < 0) {
-            offset2.x = -(posX + offset2.x);
-        } else if (chart != null && posX + width + offset2.x > chart.getWidth()) {
+        // 30 magic number based on required negative margin in LineChart.tsx in react native
+        if (posX + offset2.x < 30) {
+            offset2.x = 0;
+        } else if (chart != null && posX + width + offset2.x > (chart.getWidth() - 30)) {
             offset2.x = -width;
         }
 
