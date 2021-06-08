@@ -193,7 +193,8 @@ export interface ChartBase extends ViewProps {
     enabled?: boolean;
     digits?: number;
     markerColor?: Color;
-    textColor?: Color;
+    primaryColor?: Color;
+    secondaryColor?: Color;
     textSize?: number;
   };
 
