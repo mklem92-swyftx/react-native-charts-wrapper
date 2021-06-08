@@ -17,7 +17,6 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.wuxudong.rncharts.R;
 
-import java.util.List;
 import java.util.Map;
 
 
