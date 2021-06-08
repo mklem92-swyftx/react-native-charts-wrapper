@@ -128,8 +128,7 @@ public class RNRectangleSwyftxView extends MarkerView {
         }
 
 
-        offset2.y = posY * 2;
-        Log.i("LAIJSDKLAS", "HELLO");
+        offset2.y = -posY;
         return offset2;
     }
 
