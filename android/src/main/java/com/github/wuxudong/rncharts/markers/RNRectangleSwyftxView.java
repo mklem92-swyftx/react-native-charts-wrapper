@@ -112,10 +112,11 @@ public class RNRectangleSwyftxView extends MarkerView {
         float width = getWidth();
 
         // 30 magic number based on required negative margin in LineChart.tsx in react native
-        if (posX + offset2.x < 30) {
-            offset2.x = 0;
+        int marginSize = 30;
+        if (posX + offset2.x < marginSize) {
+            offset2.x = marginSize - (posX + offset2.x);
         } else if (chart != null && posX + width + offset2.x > (chart.getWidth() - 30)) {
-            offset2.x = -width;
+            offset2.x = -(posX + width + offset2.x - (chart.getWidth() - 30));
         }
 
         offset2.y = -posY;
