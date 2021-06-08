@@ -80,7 +80,7 @@ public class RNRectangleSwyftxView extends MarkerView {
 
     @Override
     public MPPointF getOffset() {
-        return new MPPointF(-(getWidth() / 2), 0);
+        return new MPPointF(-(getWidth() / 2), -1000;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class RNRectangleSwyftxView extends MarkerView {
         Chart chart = getChartView();
 
         float width = getWidth();
-        tvContent.setPadding(10, 10, 10,10);
+        tvContent.setPadding(15, 15, 15,15);
 
         if (posX + offset2.x < 0) {
             offset2.x = 0;
