@@ -119,10 +119,10 @@ public class RNRectangleSwyftxView extends MarkerView {
 //        }
         int marginSize = 30;
         if (posX + offset2.x < marginSize) {
-            offset2.x = posX - 30;
+            offset2.x = -(posX - 30);
 //            offset2.x += marginSize - (posX + offset2.x);
-        } else if (chart != null && posX + width + offset2.x > (chart.getWidth() - 30)) {
-            offset2.x = -(getWidth() - (chart.getWidth() - 30 - posX));
+        } else if (chart != null && posX + width + offset2.x > (chart.getWidth() - marginSize)) {
+            offset2.x = -(getWidth() - (chart.getWidth() - marginSize - posX));
         }
 
         offset2.y = -posY;
