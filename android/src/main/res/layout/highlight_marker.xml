@@ -12,7 +12,6 @@
         android:background="@drawable/rectangle_test"
         android:paddingVertical="5dp"
         android:paddingHorizontal="10dp"
-        android:layout_marginBottom="5dp"
         >
         <TextView
             android:id="@+id/highlight_label_secondary"
