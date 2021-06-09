@@ -22,7 +22,8 @@ open class HighlightMarker: MarkerView {
     open var color: UIColor?
     open var arrowSize = CGSize(width: 15, height: 11)
     open var font: UIFont?
-    open var textColor: UIColor?
+    open var primaryColor: UIColor?
+    open var secondaryColor: UIColor?
     open var minimumSize = CGSize()
 
 
@@ -36,12 +37,12 @@ open class HighlightMarker: MarkerView {
     fileprivate var _drawAttributes = [NSAttributedString.Key: Any]()
 
 
-  public init(color: UIColor, font: UIFont, textColor: UIColor, textAlign: NSTextAlignment) {
+  public init(color: UIColor, font: UIFont, primaryColor: UIColor, secondaryColor: UIColor, textAlign: NSTextAlignment) {
         super.init(frame: CGRect.zero);
         self.color = color
         self.font = font
-        self.textColor = textColor
-
+        self.primaryColor = primaryColor
+        self.secondaryColor = secondaryColor
         _paragraphStyle = NSParagraphStyle.default.mutableCopy() as? NSMutableParagraphStyle
         _paragraphStyle?.alignment = textAlign
     }
@@ -59,6 +60,8 @@ open class HighlightMarker: MarkerView {
 
 
         var rect = CGRect(origin: point, size: _size)
+
+        rect.origin.y = 0 - _size.height
 
         if point.y - _size.height < 0 {
 
@@ -93,6 +96,7 @@ open class HighlightMarker: MarkerView {
             rect.size.height -= self.insets.top + self.insets.bottom
 
         }
+
 
         return rect
     }
@@ -214,9 +218,8 @@ open class HighlightMarker: MarkerView {
 
         if let object = entry.data as? JSON {
             if object["marker"].exists() {
-                if object["marker"]["primaryText"].exists() {
-                    label = object["marker"]["primaryText"].stringValue
-                }
+                label = object["marker"]["primaryText"].stringValue
+
 
                 if highlight.stackIndex != -1 && object["marker"].array != nil {
                     label = object["marker"].arrayValue[highlight.stackIndex].stringValue
@@ -229,7 +232,7 @@ open class HighlightMarker: MarkerView {
         _drawAttributes.removeAll()
         _drawAttributes[NSAttributedString.Key.font] = self.font
         _drawAttributes[NSAttributedString.Key.paragraphStyle] = _paragraphStyle
-        _drawAttributes[NSAttributedString.Key.foregroundColor] = self.textColor
+        _drawAttributes[NSAttributedString.Key.foregroundColor] = self.primaryColor
 
         _labelSize = labelns?.size(withAttributes: _drawAttributes) ?? CGSize.zero
         _size.width = _labelSize.width + self.insets.left + self.insets.right
