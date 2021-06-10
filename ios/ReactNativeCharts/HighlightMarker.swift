@@ -109,8 +109,10 @@ open class HighlightMarker: MarkerView {
 
         if let object = entry.data as? JSON {
             if object["marker"].exists() {
-                primaryText = object["marker"]["primaryText"].stringValue
-                secondaryText = object["marker"]["secondaryText"].stringValue
+                primaryText = object["marker"]["text"].stringValue
+                if (object["marker"]["secondaryText"].exists()) {
+                    secondaryText = object["marker"]["secondaryText"].stringValue
+                }
 
                 if highlight.stackIndex != -1 && object["marker"].array != nil {
                     primaryText = object["marker"].arrayValue[highlight.stackIndex].stringValue

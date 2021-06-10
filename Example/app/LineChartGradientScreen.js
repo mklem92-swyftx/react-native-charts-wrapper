@@ -51,7 +51,7 @@ class LineChartScreen extends React.Component {
                       y: 65,
                       x: 0,
                       marker: {
-                        primaryText: "77 kg",
+                        text: "77 kg",
                         secondaryText: "77 kg"
                       }
                     },
@@ -59,7 +59,7 @@ class LineChartScreen extends React.Component {
                       y: 77,
                       x: 1,
                       marker: {
-                        primaryText: "77 kg",
+                        text: "77 kg",
                         secondaryText: "77 kg"
                       }
                     },
@@ -67,28 +67,28 @@ class LineChartScreen extends React.Component {
                       y: 76,
                       x: 2,
                       marker: {
-                        primaryText: "77 kg",
+                        text: "77 kg",
                         secondaryText: "77 kg"
                       }                    },
                     {
                       y: 74,
                       x: 3,
                       marker: {
-                        primaryText: "77 kg",
+                        text: "77 kg",
                         secondaryText: ""
                       }                    },
                     {
                       y: 76,
                       x: 4,
                       marker: {
-                        primaryText: "77 kg",
+                        text: "77 kg",
                         secondaryText: "77 kg"
                       }                    },
                     {
                       y: 65,
                       x: 5,
                       marker: {
-                        primaryText: "77 kg",
+                        text: "77 kg",
                         secondaryText: "77 kg"
                       }                    }
                   ],

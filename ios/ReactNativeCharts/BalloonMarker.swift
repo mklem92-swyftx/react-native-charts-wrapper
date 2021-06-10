@@ -214,7 +214,7 @@ open class BalloonMarker: MarkerView {
 
         if let object = entry.data as? JSON {
             if object["marker"].exists() {
-                label = object["marker"]["primaryText"].stringValue
+                label = object["marker"]["text"].stringValue
               
                 if highlight.stackIndex != -1 && object["marker"].array != nil {
                     label = object["marker"].arrayValue[highlight.stackIndex].stringValue

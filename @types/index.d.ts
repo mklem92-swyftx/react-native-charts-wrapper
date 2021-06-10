@@ -276,8 +276,8 @@ export interface PieRadarChartBase extends ChartBase {
 }
 
 export interface LineMarkerProps {
-  primaryText: string,
-  secondaryText: string
+  text: string,
+  secondaryText?: string
 }
 
 export interface LineValue {

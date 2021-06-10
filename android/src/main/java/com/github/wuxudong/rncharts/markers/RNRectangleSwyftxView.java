@@ -53,25 +53,24 @@ public class RNRectangleSwyftxView extends MarkerView {
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
         String textPrimary;
-        String textSecondary;
+        String textSecondary = "";
 
         if (e instanceof CandleEntry) {
             CandleEntry ce = (CandleEntry) e;
             textPrimary = Utils.formatNumber(ce.getClose(), digits, false);
-            textSecondary = Utils.formatNumber(ce.getClose(), digits, false);
         } else {
             textPrimary = Utils.formatNumber(e.getY(), digits, false);
-            textSecondary = Utils.formatNumber(e.getY(), digits, false);
         }
 
         if (e.getData() instanceof Map) {
             if (((Map) e.getData()).containsKey("marker")) {
-
-                Object primaryText = ((Map) ((Map) e.getData()).get("marker")).get("primaryText");
-                Object secondaryText = ((Map) ((Map) e.getData()).get("marker")).get("secondaryText");
-
+                Object primaryText = ((Map) ((Map) e.getData()).get("marker")).get("text");
                 textPrimary = primaryText.toString();
-                textSecondary = secondaryText.toString();
+
+                if (((Map) e.getData()).get("marker").containsKey("secondaryText") {
+                    Object secondaryText = ((Map) ((Map) e.getData()).get("marker")).get("secondaryText");
+                    textSecondary = secondaryText.toString();
+                }
             }
         }
 
