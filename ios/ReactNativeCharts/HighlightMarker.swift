@@ -68,9 +68,9 @@ open class HighlightMarker: MarkerView {
 
         var xOffset = -width / 2
 
-        let marginSize = CGFloat.init(30)
+        let marginSize = CGFloat.init(0) //CGFloat.init(30)
         if ((point.x + xOffset).isLess(than: marginSize)) {
-            xOffset = 0//point.x.isZero ? 0 :  -(point.x - 30)
+            xOffset = -(point.x - marginSize) //  point.x.isLess(than: marginSize) ? 0 :
         } else if (chart != nil && (chart!.bounds.width - marginSize).isLess(than: point.x + width + xOffset)) {
             xOffset = -(width - (chart!.bounds.width - marginSize - point.x))
         }
