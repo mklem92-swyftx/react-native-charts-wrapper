@@ -63,20 +63,18 @@ open class HighlightMarker: MarkerView {
         context.saveGState()
 
         let chart = super.chartView
-
         let width = _size.width
-
         var xOffset = -width / 2
 
-        let marginSize = CGFloat.init(15) //CGFloat.init(30)
+        let reactNativeMarginSize = 30
+        let marginSize = CGFloat.init(reactNativeMarginSize / 2)
         if ((point.x + xOffset).isLess(than: marginSize)) {
-            xOffset = -(point.x - marginSize) //  point.x.isLess(than: marginSize) ? 0 :
+            xOffset = -(point.x - marginSize)
         } else if (chart != nil && (chart!.bounds.width - marginSize).isLess(than: point.x + width + xOffset)) {
             xOffset = -(width - (chart!.bounds.width - marginSize - point.x))
         }
 
         let newPoint = CGPoint(x: point.x + xOffset, y: point.y)
-
         var rect = CGRect(origin: newPoint, size: _size)
 
         rect.origin.y -= rect.origin.y
@@ -84,15 +82,14 @@ open class HighlightMarker: MarkerView {
 
         let path1 = UIBezierPath(roundedRect: rect, cornerRadius: 5)
         context.addPath(path1.cgPath)
-
         context.setFillColor((color?.cgColor)!)
         context.fillPath()
 
         UIGraphicsPushContext(context)
 
-        let primarySize = primaryTextNs?.size(withAttributes: _primaryDrawAttributes)
+        let secondarySize = secondaryTextNs?.size(withAttributes: _primaryDrawAttributes)
         secondaryTextNs?.draw(at: CGPoint(x: newPoint.x + insets.left, y: rect.origin.y + insets.bottom), withAttributes: _secondaryDrawAttributes)
-        primaryTextNs?.draw(at: CGPoint(x: newPoint.x + insets.left + primarySize!.width + 5, y: rect.origin.y + insets.bottom), withAttributes: _primaryDrawAttributes)
+        primaryTextNs?.draw(at: CGPoint(x: newPoint.x + insets.left + secondarySize!.width + 5, y: rect.origin.y + insets.bottom), withAttributes: _primaryDrawAttributes)
 
         UIGraphicsPopContext()
 
