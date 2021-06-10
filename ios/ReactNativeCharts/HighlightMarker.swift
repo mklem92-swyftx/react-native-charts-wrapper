@@ -92,9 +92,7 @@ open class HighlightMarker: MarkerView {
             secondaryTextNs?.draw(at: CGPoint(x: newPoint.x + insets.left, y: rect.origin.y + insets.bottom), withAttributes: _secondaryDrawAttributes)
         }
 
-        primaryTextNs?.draw(at: CGPoint(x: newPoint.x + insets.left + (secondarySize?.width ?? 5), y: rect.origin.y + insets.bottom), withAttributes: _primaryDrawAttributes)
-//         secondaryTextNs?.draw(at: CGPoint(x: newPoint.x + insets.left, y: rect.origin.y + insets.bottom), withAttributes: _secondaryDrawAttributes)
-//         primaryTextNs?.draw(at: CGPoint(x: newPoint.x + insets.left + secondarySize!.width + 5, y: rect.origin.y + insets.bottom), withAttributes: _primaryDrawAttributes)
+        primaryTextNs?.draw(at: CGPoint(x: newPoint.x + insets.left + (secondaryTextNs!.isEqual(to: "") ? 0 : secondarySize!.width + 5), y: rect.origin.y + insets.bottom), withAttributes: _primaryDrawAttributes)
 
         UIGraphicsPopContext()
 
@@ -141,8 +139,8 @@ open class HighlightMarker: MarkerView {
 
         let primarySize = primaryTextNs?.size(withAttributes: _primaryDrawAttributes)
         let secondarySize = secondaryTextNs?.size(withAttributes: _secondaryDrawAttributes)
-        _labelSize = primarySize != nil ? CGSize(width: (primarySize?.width)! + (secondarySize?.width ?? 0), height: primarySize!.height) : CGSize.zero
-        _size.width = _labelSize.width + self.insets.left + self.insets.right + 5 // 5 represents size from the margin between the labels
+        _labelSize = primarySize != nil ? CGSize(width: primarySize!.width + secondarySize!.width, height: primarySize!.height) : CGSize.zero
+        _size.width = _labelSize.width + self.insets.left + self.insets.right + (secondaryText != "" ? 5 : 0) // 5 represents size from the margin between the labels
         _size.height = _labelSize.height + self.insets.top + self.insets.bottom
         _size.width = max(minimumSize.width, _size.width)
         _size.height = max(minimumSize.height, _size.height)
