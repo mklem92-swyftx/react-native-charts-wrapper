@@ -27,14 +27,16 @@ open class HighlightMarker: MarkerView {
     open var minimumSize = CGSize()
 
 
-    fileprivate var insets = UIEdgeInsets(top: 8.0,left: 8.0,bottom: 20.0,right: 8.0)
-    fileprivate var topInsets = UIEdgeInsets(top: 20.0,left: 8.0,bottom: 8.0,right: 8.0)
+    fileprivate var insets = UIEdgeInsets(top: 5.0,left: 10.0, bottom: 5.0,right: 10.0)
 
-    fileprivate var labelns: NSString?
+    fileprivate var primaryTextNs: NSString?
+    fileprivate var secondaryTextNs: NSString?
+
     fileprivate var _labelSize: CGSize = CGSize()
     fileprivate var _size: CGSize = CGSize()
     fileprivate var _paragraphStyle: NSMutableParagraphStyle?
-    fileprivate var _drawAttributes = [NSAttributedString.Key: Any]()
+    fileprivate var _primaryDrawAttributes = [NSAttributedString.Key: Any]()
+    fileprivate var _secondaryDrawAttributes = [NSAttributedString.Key: Any]()
 
 
   public init(color: UIColor, font: UIFont, primaryColor: UIColor, secondaryColor: UIColor, textAlign: NSTextAlignment) {
@@ -52,153 +54,44 @@ open class HighlightMarker: MarkerView {
     }
 
 
-    func drawRect(context: CGContext, point: CGPoint) -> CGRect{
-
-        let chart = super.chartView
-
-        let width = _size.width
-
-
-        var rect = CGRect(origin: point, size: _size)
-
-        rect.origin.y = 0 - _size.height
-
-        if point.y - _size.height < 0 {
-
-            if point.x - _size.width / 2.0 < 0 {
-                drawTopLeftRect(context: context, rect: rect)
-            } else if (chart != nil && point.x + width - _size.width / 2.0 > (chart?.bounds.width)!) {
-                rect.origin.x -= _size.width
-                drawTopRightRect(context: context, rect: rect)
-            } else {
-                rect.origin.x -= _size.width / 2.0
-                drawTopCenterRect(context: context, rect: rect)
-            }
-
-            rect.origin.y += self.topInsets.top
-            rect.size.height -= self.topInsets.top + self.topInsets.bottom
-
-        } else {
-
-            rect.origin.y -= _size.height
-
-            if point.x - _size.width / 2.0 < 0 {
-                drawLeftRect(context: context, rect: rect)
-            } else if (chart != nil && point.x + width - _size.width / 2.0 > (chart?.bounds.width)!) {
-                rect.origin.x -= _size.width
-                drawRightRect(context: context, rect: rect)
-            } else {
-                rect.origin.x -= _size.width / 2.0
-                drawCenterRect(context: context, rect: rect)
-            }
-
-            rect.origin.y += self.insets.top
-            rect.size.height -= self.insets.top + self.insets.bottom
-
-        }
-
-
-        return rect
-    }
-
-    func drawCenterRect(context: CGContext, rect: CGRect) {
-
-        context.setFillColor((color?.cgColor)!)
-        context.beginPath()
-        context.move(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height - arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + (rect.size.width + arrowSize.width) / 2.0, y: rect.origin.y + rect.size.height - arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width / 2.0, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + (rect.size.width - arrowSize.width) / 2.0, y: rect.origin.y + rect.size.height - arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height - arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
-        context.fillPath()
-
-    }
-
-    func drawLeftRect(context: CGContext, rect: CGRect) {
-        context.setFillColor((color?.cgColor)!)
-        context.beginPath()
-        context.move(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height - arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + arrowSize.width / 2.0, y: rect.origin.y + rect.size.height - arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
-        context.fillPath()
-
-    }
-
-    func drawRightRect(context: CGContext, rect: CGRect) {
-        context.setFillColor((color?.cgColor)!)
-        context.beginPath()
-        context.move(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x  + rect.size.width - arrowSize.width / 2.0, y: rect.origin.y + rect.size.height - arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height - arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
-        context.fillPath()
-
-    }
-
-    func drawTopCenterRect(context: CGContext, rect: CGRect) {
-
-        context.setFillColor((color?.cgColor)!)
-        context.beginPath()
-        context.move(to: CGPoint(x: rect.origin.x + rect.size.width / 2.0, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + (rect.size.width + arrowSize.width) / 2.0, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + (rect.size.width - arrowSize.width) / 2.0, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width / 2.0, y: rect.origin.y))
-        context.fillPath()
-
-    }
-
-    func drawTopLeftRect(context: CGContext, rect: CGRect) {
-        context.setFillColor((color?.cgColor)!)
-        context.beginPath()
-        context.move(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + arrowSize.width / 2.0, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
-        context.fillPath()
-
-    }
-
-    func drawTopRightRect(context: CGContext, rect: CGRect) {
-        context.setFillColor((color?.cgColor)!)
-        context.beginPath()
-        context.move(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width - arrowSize.height / 2.0, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y))
-        context.fillPath()
-
-    }
-
-
 
     open override func draw(context: CGContext, point: CGPoint) {
-        if (labelns == nil || labelns?.length == 0) {
+        if (primaryTextNs == nil || primaryTextNs?.length == 0) {
             return
         }
 
         context.saveGState()
 
-        let rect = drawRect(context: context, point: point)
+        let chart = super.chartView
+
+        let width = _size.width
+
+        var xOffset = -width / 2
+
+        let marginSize = CGFloat.init(30)
+        if ((point.x + xOffset).isLess(than: marginSize)) {
+            xOffset = -(point.x - 30)
+        } else if (chart != nil && (chart!.bounds.width - marginSize).isLess(than: point.x + width + xOffset)) {
+            xOffset = -(width - (chart!.bounds.width - marginSize - point.x))
+        }
+
+        let newPoint = CGPoint(x: point.x + xOffset, y: point.y)
+
+        var rect = CGRect(origin: newPoint, size: _size)
+
+        rect.origin.y -= rect.origin.y
+
+
+        let path1 = UIBezierPath(roundedRect: rect, cornerRadius: 5)
+        context.addPath(path1.cgPath)
+
+        context.setFillColor((color?.cgColor)!)
+        context.fillPath()
 
         UIGraphicsPushContext(context)
 
-        labelns?.draw(in: rect, withAttributes: _drawAttributes)
+        secondaryTextNs?.draw(at: CGPoint(x: newPoint.x + insets.left, y: rect.origin.y + insets.bottom), withAttributes: _secondaryDrawAttributes)
+        primaryTextNs?.draw(at: CGPoint(x: newPoint.x + insets.left + (rect.width / 2), y: rect.origin.y + insets.bottom), withAttributes: _primaryDrawAttributes)
 
         UIGraphicsPopContext()
 
@@ -207,39 +100,47 @@ open class HighlightMarker: MarkerView {
 
     open override func refreshContent(entry: ChartDataEntry, highlight: Highlight) {
 
-        var label : String;
+        var primaryText : String;
+        var secondaryText : String = "";
 
         if let candleEntry = entry as? CandleChartDataEntry {
-
-            label = candleEntry.close.description
+            primaryText = candleEntry.close.description
         } else {
-            label = entry.y.description
+            primaryText = entry.y.description
         }
 
         if let object = entry.data as? JSON {
             if object["marker"].exists() {
-                label = object["marker"]["primaryText"].stringValue
-
+                primaryText = object["marker"]["primaryText"].stringValue
+                secondaryText = object["marker"]["secondaryText"].stringValue
 
                 if highlight.stackIndex != -1 && object["marker"].array != nil {
-                    label = object["marker"].arrayValue[highlight.stackIndex].stringValue
+                    primaryText = object["marker"].arrayValue[highlight.stackIndex].stringValue
                 }
             }
         }
 
-        labelns = label as NSString
+        primaryTextNs = primaryText as NSString
+        secondaryTextNs = secondaryText as NSString
 
-        _drawAttributes.removeAll()
-        _drawAttributes[NSAttributedString.Key.font] = self.font
-        _drawAttributes[NSAttributedString.Key.paragraphStyle] = _paragraphStyle
-        _drawAttributes[NSAttributedString.Key.foregroundColor] = self.primaryColor
+        _primaryDrawAttributes.removeAll()
+        _primaryDrawAttributes[NSAttributedString.Key.font] = self.font
+        _primaryDrawAttributes[NSAttributedString.Key.paragraphStyle] = _paragraphStyle
+        _primaryDrawAttributes[NSAttributedString.Key.foregroundColor] = self.primaryColor
+        _primaryDrawAttributes[NSAttributedString.Key.strokeWidth] = -3
 
-        _labelSize = labelns?.size(withAttributes: _drawAttributes) ?? CGSize.zero
-        _size.width = _labelSize.width + self.insets.left + self.insets.right
+        _secondaryDrawAttributes.removeAll()
+        _secondaryDrawAttributes[NSAttributedString.Key.font] = self.font
+        _secondaryDrawAttributes[NSAttributedString.Key.paragraphStyle] = _paragraphStyle
+        _secondaryDrawAttributes[NSAttributedString.Key.foregroundColor] = self.secondaryColor
+
+        let primarySize = primaryTextNs?.size(withAttributes: _primaryDrawAttributes)
+        let secondarySize = secondaryTextNs?.size(withAttributes: _secondaryDrawAttributes)
+        _labelSize = primarySize != nil ? CGSize(width: (primarySize?.width)! + (secondarySize?.width ?? 0), height: primarySize!.height) : CGSize.zero
+        _size.width = _labelSize.width + self.insets.left + self.insets.right + 5 // 5 represents size from the margin between the labels
         _size.height = _labelSize.height + self.insets.top + self.insets.bottom
         _size.width = max(minimumSize.width, _size.width)
         _size.height = max(minimumSize.height, _size.height)
-
     }
 }
 
