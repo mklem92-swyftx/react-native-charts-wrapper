@@ -68,7 +68,7 @@ open class HighlightMarker: MarkerView {
 
         var xOffset = -width / 2
 
-        let marginSize = CGFloat.init(0) //CGFloat.init(30)
+        let marginSize = CGFloat.init(15) //CGFloat.init(30)
         if ((point.x + xOffset).isLess(than: marginSize)) {
             xOffset = -(point.x - marginSize) //  point.x.isLess(than: marginSize) ? 0 :
         } else if (chart != nil && (chart!.bounds.width - marginSize).isLess(than: point.x + width + xOffset)) {
@@ -91,7 +91,7 @@ open class HighlightMarker: MarkerView {
         UIGraphicsPushContext(context)
 
         secondaryTextNs?.draw(at: CGPoint(x: newPoint.x + insets.left, y: rect.origin.y + insets.bottom), withAttributes: _secondaryDrawAttributes)
-        primaryTextNs?.draw(at: CGPoint(x: newPoint.x + insets.left + (rect.width / 2), y: rect.origin.y + insets.bottom), withAttributes: _primaryDrawAttributes)
+        primaryTextNs?.draw(at: CGPoint(x: newPoint.x + 2.5 + (rect.width / 2), y: rect.origin.y + insets.bottom), withAttributes: _primaryDrawAttributes)
 
         UIGraphicsPopContext()
 
