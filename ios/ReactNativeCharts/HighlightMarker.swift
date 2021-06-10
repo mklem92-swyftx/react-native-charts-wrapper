@@ -90,8 +90,9 @@ open class HighlightMarker: MarkerView {
 
         UIGraphicsPushContext(context)
 
+        let primarySize = primaryTextNs?.size(withAttributes: _primaryDrawAttributes)
         secondaryTextNs?.draw(at: CGPoint(x: newPoint.x + insets.left, y: rect.origin.y + insets.bottom), withAttributes: _secondaryDrawAttributes)
-        primaryTextNs?.draw(at: CGPoint(x: newPoint.x + 2.5 + (rect.width / 2), y: rect.origin.y + insets.bottom), withAttributes: _primaryDrawAttributes)
+        primaryTextNs?.draw(at: CGPoint(x: newPoint.x + insets.left + primarySize + 5, y: rect.origin.y + insets.bottom), withAttributes: _primaryDrawAttributes)
 
         UIGraphicsPopContext()
 
