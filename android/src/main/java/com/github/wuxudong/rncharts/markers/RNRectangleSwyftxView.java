@@ -67,7 +67,7 @@ public class RNRectangleSwyftxView extends MarkerView {
                 Object primaryText = ((Map) ((Map) e.getData()).get("marker")).get("text");
                 textPrimary = primaryText.toString();
 
-                if (((Map) e.getData()).get("marker").containsKey("secondaryText") {
+                if (((Map) e.getData()).get("marker").containsKey("secondaryText")) {
                     Object secondaryText = ((Map) ((Map) e.getData()).get("marker")).get("secondaryText");
                     textSecondary = secondaryText.toString();
                 }
